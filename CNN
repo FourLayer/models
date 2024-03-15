@@ -1,3 +1,17 @@
+import librosa
+import numpy as np
+from keras.models import Sequential
+from keras.layers import Dense, Dropout, Flatten, Conv1D, MaxPooling1D
+from sklearn.model_selection import train_test_split
+from keras.optimizers import Adam
+import glob
+import os
+from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score, f1_score
+from keras.utils import to_categorical
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+
 X = np.concatenate([ai_features, human_features])
 y = np.concatenate([ai_labels, human_labels])
 
