@@ -1,0 +1,26 @@
+import librosa
+import numpy as np
+import glob
+import os
+from xgboost import XGBClassifier
+from sklearn.metrics import accuracy_score, f1_score
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+
+
+X = np.concatenate([ai_features, human_features])
+y = np.concatenate([ai_labels, human_labels])
+
+X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2)
+
+# XGBoost 모델
+xgb_model = XGBClassifier()
+xgb_model.fit(X_train, y_train)
+
+y_pred = xgb_model.predict(X_val)
+print(f"XGBoost Accuracy: {accuracy_score(y_val, y_pred)}")
+
+# F1 Score
+f1 = f1_score(y_val, y_pred)
+print(f"F1 Score: {f1}")
